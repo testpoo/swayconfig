@@ -1,13 +1,13 @@
 ### 1. 安装Sway及相关软件
 ```
-sudo apt install fcitx5 fcitx5-rime rime-data-wubi thunar archiver pulseaudio blueman thunar-archive-plugin fonts-wqy-zenhei sway swaybg swayidle swaylock foot wofi seatd xwayland grim
+sudo apt install fcitx5 fcitx5-rime rime-data-wubi thunar xarchiver pulseaudio blueman thunar-archive-plugin fonts-noto-cjk sway swaybg swayidle swaylock foot wofi seatd xwayland grim git upower brightnessctl
 ```
 
 ### 2. 输入法环境变量设置
 
 启用fcitx输入需要配置环境变量：
 ```
-nano /etc/enviroment
+nano /etc/environment
 
 XIM="fcitx"
 GTK_IM_MODULE=fcitx
