@@ -1,18 +1,16 @@
 {
     "layer": "bottom",
     "position": "bottom",
-    "height": 20,
+    "height": 30,
     "spacing": 3,
     "modules-left": [
         "custom/menu",
         "sway/workspaces",
         "sway/mode",
-        "sway/scratchpad",
         "wlr/taskbar"
     ],
     "modules-center": [],
     "modules-right": [
-        "mpd",
         "disk",
         "cpu",
         "memory",
@@ -44,38 +42,12 @@
     },
     "wlr/taskbar": {
         "format": "{icon}",
-        "icon-size": 20,
+        "icon-size": 28,
         "spacing": 3,
         "on-click-right": "close",
         "tooltip-format": "{title}",
         "ignore-list": [],
         "on-click": "activate"
-    },
-    "mpd": {
-        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% 🎵",
-        "format-disconnected": "Disconnected 🎵",
-        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped 🎵",
-        "unknown-tag": "N/A",
-        "interval": 5,
-        "consume-icons": {
-            "on": "✂ "
-        },
-        "random-icons": {
-            "off": "<span color=\"#f53c3c\">🔀</span> ",
-            "on": "🔀 "
-        },
-        "repeat-icons": {
-            "on": "🔁 "
-        },
-        "single-icons": {
-            "on": "🔂 "
-        },
-        "state-icons": {
-            "paused": "⏸️",
-            "playing": "▶️"
-        },
-        "tooltip-format": "MPD (connected)",
-        "tooltip-format-disconnected": "MPD (disconnected)"
     },
     "tray": {
         "spacing": 10
