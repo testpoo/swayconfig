@@ -30,7 +30,7 @@
         "on-click": "wofi --show=drun -I --prompt='请输入软件名称'",
         "tooltip": false,
         "menu": "on-click-right",
-        "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+        "menu-file": "$HOME/.config/waybar/power_menu.xml",
         "menu-actions": {
             "shutdown": "systemctl poweroff -i",
             "reboot": "systemctl reboot",
@@ -53,7 +53,7 @@
         "spacing": 10
     },
     "clock": {
-        "format": "<small>{:%F\n     %H:%M}</small>",
+        "format": "<small>{:%F\n        %H:%M}</small>",
         "tooltip-format": "{:L%A %F %H:%M 第%V周}"
 
     },
@@ -62,7 +62,7 @@
         "tooltip-format": "已用{total}中的{used}({percentage_used}%)"
     }, 
     "cpu": {
-        "format": "©️ {usage}%",
+        "format": "Ⓒ {usage}%",
         "tooltip": false
     },
     "memory": {
