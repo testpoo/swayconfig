@@ -28,7 +28,7 @@
     "custom/menu": {
         "format": "🌀",
         "on-click": "wofi --show=drun -I --prompt='请输入软件名称'",
-        "tooltip": false,
+        "tooltip-format": "左键程序菜单\r右键注销菜单",
         "menu": "on-click-right",
         "menu-file": "$HOME/.config/waybar/power_menu.xml",
         "menu-actions": {
