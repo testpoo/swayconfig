@@ -19,7 +19,7 @@ set $term foot
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu wofi --show=drun -I --height=500 --width=600 --gtk-dark --columns=2 --prompt='请输入软件名称'
+set $menu wofi --show=drun -I --prompt="请输入软件名称"
 
 include /etc/sway/config-vars.d/*
 
@@ -202,7 +202,24 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-exec waybar
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position top
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    # status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    status_command while ~/.config/sway/bar.sh; do sleep 1; done
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+    icon_theme Adwaita 
+}
 
 include /etc/sway/config.d/*
 
@@ -237,6 +254,22 @@ default_border none
 
 # foucus follows mouse(cursor)
 focus_follows_mouse yes
+
+set $mode_system 锁屏(l)丨退出(e)丨挂起(s)丨休眼(h)丨重启(r)丨关机(p)
+mode "$mode_system" {
+    bindsym l exec --no-startup-id swaylock, mode "default"
+    bindsym e exec --no-startup-id swaymsg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "$mode_system"
 
 bindsym $mod+t exec Thunar
 bindsym $mod+q exec firefox-esr
