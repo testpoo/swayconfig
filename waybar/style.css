@@ -84,7 +84,7 @@ button:hover {
 
 #window,
 #workspaces {
-    margin: 0 4px;
+    margin: 0px;
 }
 
 .modules-left > widget:first-child > #workspaces {
@@ -119,6 +119,10 @@ button:hover {
 
 label:focus {
     background-color: #000000;
+}
+
+#tray > .active:hover {
+    border-bottom: 3px solid white;
 }
 
 #tray > .passive {
