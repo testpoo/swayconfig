@@ -19,7 +19,7 @@ set $term foot
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu wofi --show=drun -I --height=500 --width=300 --xoffset=0 --yoffset=423 --gtk-dark --prompt='请输入软件名称'
+set $menu wofi --show=drun -I --line=6 --gtk-dark --prompt='请输入软件名称'
 
 include /etc/sway/config-vars.d/*
 

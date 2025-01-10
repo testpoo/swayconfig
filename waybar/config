@@ -4,7 +4,7 @@
     "height": 30,
     "spacing": 3,
     "modules-left": [
-        "custom/menu",
+        "custom/systeminfo",
         "sway/workspaces",
         "sway/mode",
         "wlr/taskbar"
@@ -20,16 +20,14 @@
         "battery",
         "clock",
         "tray",
-        "custom/systeminfo"
+        "custom/menu"
     ],
     "sway/mode": {
         "format": "{}"
     },
     "custom/menu": {
         "format": "🌀",
-        "on-click": "wofi --show=drun -I --height=500 --width=300 --xoffset=0 --yoffset=423 --gtk-dark --prompt='请输入软件名称'",
-        "tooltip-format": "左键程序菜单\r右键注销菜单",
-        "menu": "on-click-right",
+        "menu": "on-click",
         "menu-file": "$HOME/.config/waybar/power_menu.xml",
         "menu-actions": {
             "shutdown": "systemctl poweroff -i",
