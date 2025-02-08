@@ -19,7 +19,7 @@ set $term foot
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 # set $menu dmenu_path | dmenu | xargs swaymsg exec --
-set $menu wofi --show=drun -I --line=6 --gtk-dark --prompt='请输入软件名称'
+set $menu wofi -S drun -I -G -p "请输入程序名称"
 
 include /etc/sway/config-vars.d/*
 
@@ -27,7 +27,8 @@ include /etc/sway/config-vars.d/*
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-output * bg /home/poo/图片/bg.jpg fill
+# output * bg /home/poo/图片/1.jpg fill
+exec_always swaybg -i /home/poo/图片/2.jpg
 #
 # Example configuration:
 #
@@ -58,7 +59,6 @@ input "2362:597:SYNA3602:00_093A:0255_Touchpad" {
     tap enabled
     natural_scroll enabled
     middle_emulation enabled
-    events enabled
 }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
@@ -202,12 +202,29 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-exec waybar
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    position top
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    # status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    status_command while ~/.config/sway/bar.sh; do sleep 1; done
+
+    colors {
+        statusline #ffffff
+        background #323232
+        inactive_workspace #32323200 #32323200 #5c5c5c
+    }
+    icon_theme Adwaita 
+}
 
 include /etc/sway/config.d/*
 
-exec_always fcitx5 -d --replace
-exec --no-startup-id blueman-applet
+exec_always --no-startup-id fcitx5 -d --replace
+exec_always --no-startup-id blueman-applet
 
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
@@ -233,14 +250,32 @@ bindsym $mod+Shift+Tab workspace prev
 # bindsym $mod+b border toggle
 
 # 默认设置没标题栏
-default_border none
+default_border pixel 0
 
 # foucus follows mouse(cursor)
 focus_follows_mouse yes
 
+set $mode_system 锁屏(l)丨退出(e)丨挂起(s)丨休眼(h)丨重启(r)丨关机(p)
+mode "$mode_system" {
+    bindsym l exec --no-startup-id swaylock, mode "default"
+    bindsym e exec --no-startup-id swaymsg exit, mode "default"
+    bindsym s exec --no-startup-id systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym p exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+p mode "$mode_system"
+
 bindsym $mod+t exec Thunar
 bindsym $mod+q exec firefox-esr
-bindsym $mod+Control_L exec /home/poo/公共/touchpad.py
+bindsym $mod+Control_L exec /home/poo/.config/sway/touchpad.py
+bindsym Shift+Print exec grim -g "$(slurp)" - | wl-copy
+bindsym Print exec grim - | wl-copy
 
 # 设置窗口浮动
 for_window [class="wechat"] floating enable
