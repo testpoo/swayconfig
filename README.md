@@ -14,7 +14,7 @@ nano /etc/environment
 
 XIM="fcitx"
 #GTK_IM_MODULE=fcitx
-#QT_IM_MODULE=fcitx
+QT_IM_MODULE=fcitx
 XMODIFIERS="@im=fcitx"
 INPUT_METHOD=fcitx
 SDL_IM_MODULE=fcitx
