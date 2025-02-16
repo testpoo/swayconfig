@@ -226,9 +226,8 @@ bar {
     colors {
         statusline #ffffff
         background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
+        inactive_workspace #323232 #323232 #5c5c5c
     }
-    icon_theme Adwaita 
 }
 
 include /etc/sway/config.d/*
@@ -286,10 +285,12 @@ bindsym $mod+q exec firefox-esr
 bindsym $mod+Control_L exec /home/poo/.config/sway/touchpad.py
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 bindsym Print exec grim - | wl-copy
+bindsym $mod+Shift+i exec foot --app-id 'launcher' -e bash -c "/home/poo/.config/sway/systeminfo; read -p ''"
 
 # 设置窗口浮动
 for_window [class="wechat"] floating enable
 for_window [app_id="io.github.quodlibet.QuodLibet"] floating enable
+for_window [app_id="^launcher$"] floating enable, border none, resize set width 500 px height 430 px, move position center
 
 # 弹窗
 # popups
