@@ -4,13 +4,18 @@
     "height": 30,
     "spacing": 3,
     "modules-left": [
-        "custom/systeminfo",
+        "custom/menu",
         "sway/workspaces",
-        "sway/mode",
+        "custom/browser",
+        "custom/filemanager",
+        "custom/terminal",
+        "sway/mode"
+    ],
+    "modules-center": [
         "wlr/taskbar"
     ],
-    "modules-center": [],
     "modules-right": [
+        "custom/touchpad",
         "disk",
         "cpu",
         "memory",
@@ -20,14 +25,28 @@
         "battery",
         "clock",
         "tray",
-        "custom/menu"
+        "custom/systeminfo"
     ],
-    "sway/mode": {
-        "format": "{}"
+    "custom/browser": {
+        "format": "",
+        "tooltip-format": "火狐浏览器",
+        "on-click": "firefox-esr"
+    },
+    "custom/filemanager": {
+        "format": "",
+        "tooltip-format": "文件管理器",
+        "on-click": "thunar"
+    },
+    "custom/terminal": {
+        "format": "",
+        "tooltip-format": "终端",
+        "on-click": "foot"
     },
     "custom/menu": {
-        "format": "🌀",
-        "menu": "on-click",
+        "format": "",
+        "tooltip": false,
+        "on-click": "wofi -S drun -I --gtk-dark -x 0 -y 324 -W 300 -H 600 -p '请输入软件名称'",
+        "menu": "on-click-right",
         "menu-file": "$HOME/.config/waybar/power_menu.xml",
         "menu-actions": {
             "shutdown": "systemctl poweroff -i",
@@ -35,8 +54,16 @@
             "suspend": "systemctl suspend",
             "hibernate": "systemctl hibernate",
             "swaylock": "swaylock",
-            "exit": "swaymsg exit"
+            "exit": "swaymsg exit",
+            "reconfigure": "swaymsg reload"
         }
+    },
+    "sway/mode": {
+        "format": "{}"
+    },
+    "sway/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate"
     },
     "wlr/taskbar": {
         "format": "{icon}",
@@ -97,8 +124,15 @@
     },
     "custom/systeminfo": {
         "interval": 60,
-        "exec": "/home/poo/公共/systeminfo",
+        "exec": "~/.config/waybar/systeminfo",
         "format": "🖥️",
         "tooltip-format": "<tt>{}</tt>"
+    },
+    "custom/touchpad": {
+        "interval": 1,
+        "exec": "~/.config/sway/touchpad_status.py",
+        "format": "📋 {}",
+        "tooltip-format": "启停触摸板",
+        "on-click": "~/.config/sway/touchpad.py"
     }
 }
