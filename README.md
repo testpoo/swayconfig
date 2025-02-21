@@ -99,12 +99,16 @@ input "2362:597:SYNA3602:00_093A:0255_Touchpad" {
     events enabled
 }
 
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
-bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-bindsym XF86MonBrightnessUp exec brightnessctl set 5%+
+
+exec_always --no-startup-id fcitx5 -d --replace
+exec_always --no-startup-id blueman-applet
+
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%;exec pkill -SIGUSR1 -f /home/poo/.config/sway/bar.sh
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%;exec pkill -SIGUSR1 -f /home/poo/.config/sway/bar.sh
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle;exec pkill -SIGUSR1 -f /home/poo/.config/sway/bar.sh
+bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle;exec pkill -SIGUSR1 -f /home/poo/.config/sway/bar.sh
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-;exec pkill -SIGUSR1 -f /home/poo/.config/sway/bar.sh
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%+;exec pkill -SIGUSR1 -f /home/poo/.config/sway/bar.sh
 
 # 隐藏或者显示bar
 # bar toggle, hide or show
@@ -141,17 +145,29 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
 bindsym $mod+p mode "$mode_system"
 
-exec_always --no-startup-id fcitx5 -d --replace
-exec_always --no-startup-id blueman-applet
-
 bindsym $mod+t exec Thunar
-bindsym $mod+q exec chromium
-bindsym $mod+Control_L exec /home/poo/.config/sway/touchpad.py
-bindsym Shift+Print exec grim -g "$(slurp)" - | wl-copy
+bindsym $mod+q exec firefox-esr
+bindsym $mod+Control_L exec /home/poo/.config/sway/touchpad.py;exec pkill -SIGUSR1 -f /home/poo/.config/sway/bar.sh
+bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 bindsym Print exec grim - | wl-copy
+bindsym $mod+Shift+i exec /home/poo/.config/sway/systeminfo | wofi -d -G -s /home/poo/.config/sway/systeminfo.css -W 485 -H 530
 
 # 设置窗口浮动
 for_window [class="wechat"] floating enable
+for_window [app_id="io.github.quodlibet.QuodLibet"] floating enable
+
+# 弹窗
+# popups
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [title="文件操作进度"] floating enable
+for_window [title="确认替换文件"] floating enable
+
+#for_window [app_id="firefox-esr"] move container workspace number $ws1
+#for_window [app_id="Thunar"] move container workspace number $ws2
+#for_window [app_id="foot"] move container workspace number $ws3
+#for_window [app_id="sublime_text"] move container workspace number $ws4
 ```

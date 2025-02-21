@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# 捕获 USR1 信号
+trap 'update_swaybar' SIGUSR1
+
 # 启用JSON协议头
 echo '{"version":1,"click_events":false}'
 echo '[' # 开始JSON数组
@@ -35,24 +38,25 @@ while true; do
   if [ $(hostname -I | awk -F ' ' '{print $1}' | cut -d '.' -f 1-2) = "192.168" ];then network="📶连接";else network="🌐断开";fi
 
   # 触摸板
-  touchpad="📋"$(swaymsg -t get_inputs | python3 -c "import sys,json; print(json.load(sys.stdin)[4]['libinput']['send_events'])" | awk -F : '{if ($0 == "enabled"){print "开"} else {print "关"}}')
+  touchpad="📋"$(swaymsg -t get_inputs | python3 -c "import os,sys,json; print([li for li in json.load(sys.stdin) if li['identifier'] == '2362:597:SYNA3602:00_093A:0255_Touchpad'][0]['libinput']['send_events'])" | awk '{if ($0 == "enabled"){print "开"} else {print "关"}}')
 
   # 构造带点击标识的JSON块
   JSON_BLOCKS=$(cat <<EOF
 ,[
-  {"full_text":"$touchpad","min_width": 50,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
-  {"full_text":"$cpuUsage","min_width": 50,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
-  {"full_text":"$mem_used_persent","min_width": 50,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
-  {"full_text":"$diskUsage","min_width": 50,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
-  {"full_text":"$light","min_width": 50,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
-  {"full_text":"$volume","min_width": 50,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
-  {"full_text":"$network","min_width": 50,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
-  {"full_text":"$battary","min_width": 50,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
-  {"full_text":"$now_time","min_width": 200,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"}
+  {"full_text":"$touchpad","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$cpuUsage","min_width":40,"border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$mem_used_persent","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$diskUsage","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$light","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$volume","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$network","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$battary","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$now_time","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"}
 ]
 EOF
   )
 
   echo "$JSON_BLOCKS"  
-  sleep 1
+  sleep 5 &
+  wait $!
 done
