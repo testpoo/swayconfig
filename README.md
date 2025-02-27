@@ -99,7 +99,6 @@ input "2362:597:SYNA3602:00_093A:0255_Touchpad" {
     events enabled
 }
 
-
 exec_always --no-startup-id fcitx5 -d --replace
 exec_always --no-startup-id blueman-applet
 

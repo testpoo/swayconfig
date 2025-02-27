@@ -43,10 +43,10 @@ while true; do
   # 构造带点击标识的JSON块
   JSON_BLOCKS=$(cat <<EOF
 ,[
-  {"full_text":"$touchpad","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
-  {"full_text":"$cpuUsage","min_width":40,"border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$cpuUsage","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
   {"full_text":"$mem_used_persent","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
   {"full_text":"$diskUsage","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
+  {"full_text":"$touchpad","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
   {"full_text":"$light","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
   {"full_text":"$volume","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
   {"full_text":"$network","border":"#111111aa","border_left": 3,"border_right":3,"align":"center","background":"#111111aa","separator":false,"separator_block_width":3,"color":"#ffffff"},
