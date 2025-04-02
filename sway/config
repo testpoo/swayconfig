@@ -116,11 +116,11 @@ input "2362:597:SYNA3602:00_093A:0255_Touchpad" {
 #
 # Workspaces:
 #
-    set $ws1 "1:"
-    set $ws2 "2:"
-    set $ws3 "3:"
-    set $ws4 "4:"
-    set $ws5 "5-"
+    set $ws1 "1:浏览器"
+    set $ws2 "2:文件"
+    set $ws3 "3:终端"
+    set $ws4 "4:sublime"
+    set $ws5 "5:wps"
     set $ws6 "6"
     set $ws7 "7"
     set $ws8 "8"
@@ -225,6 +225,8 @@ bar {
     status_command ~/.config/sway/bar.sh
     font Noto Sans CJK SC Bold 10
     icon_theme Adwaita
+    bindsym button3 exec /home/poo/.config/sway/systeminfo | wofi -d -G -s /home/poo/.config/sway/systeminfo.css -W 485 -H 530
+    bindsym button1 exec /home/poo/.config/sway/swayconfig | wofi -d -G -s /home/poo/.config/sway/systeminfo.css -W 320 -H 560
 
     colors {
         statusline #ffffff
@@ -289,6 +291,7 @@ bindsym $mod+Control_L exec /home/poo/.config/sway/touchpad.py;exec pkill -SIGUS
 bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy
 bindsym Print exec grim - | wl-copy
 bindsym $mod+Shift+i exec /home/poo/.config/sway/systeminfo | wofi -d -G -s /home/poo/.config/sway/systeminfo.css -W 485 -H 530
+bindsym $mod+Shift+o exec /home/poo/.config/sway/swayconfig | wofi -d -G -s /home/poo/.config/sway/systeminfo.css -W 320 -H 560
 
 # 设置窗口浮动
 for_window [class="wechat"] floating enable
